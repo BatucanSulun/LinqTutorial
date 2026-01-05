@@ -11,8 +11,7 @@ namespace Exercises
         //which will count all words longer than 10 letters.
         public static int CountAllLongWords(IEnumerable<string> words)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+           return words.Count(words => words.Length>2);
         }
 
         //Coding Exercise 2
