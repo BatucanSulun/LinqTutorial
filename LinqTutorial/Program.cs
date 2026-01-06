@@ -1,5 +1,8 @@
 ﻿using System;
 using LinqTutorial.MethodSyntax;
+using System.Collections.Generic;
+using System.Linq;
+
 
 namespace LinqTutorial
 {
@@ -10,7 +13,7 @@ namespace LinqTutorial
             //METHOD SYNTAX
 
             //Any.Run();
-            All.Run();
+            //All.Run();
             //Count.Run();
             //Contains.Run();
             //OrderBy.Run();
@@ -50,7 +53,14 @@ namespace LinqTutorial
             //DotNet6Improvements.Run();
             //DotNet9Improvements.Run();
 
-            Console.ReadKey();
+            //int [] sayilar = { 10, 20, 30, 40 };
+
+            //var max = sayilar.Count();
+            //Console.WriteLine(max);
+            
+            
+            
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 
 namespace Exercises
@@ -19,10 +20,21 @@ namespace Exercises
          */
         public static int? LengthOfTheShortestWord(IEnumerable<string> words)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
-        }
+            //We can determine whether the collection is empty or not by using Any() method.
+            //Any method w/o lambda expression asks the following question: "Does this collection at least one member?"
+            //Also ternary operator is usefull in this case
+            //
+            return words.Any() ? words.Min(word=>word.Length): null ;
 
+            /* Naive solution 
+            if (words.Count()==0)
+            {
+                return null;
+            }
+
+            return words.Min(word => word.Length);
+            */
+        }
         //Coding Exercise 2
         /*
          Using LINQ, implement the CountOfLargestNumbers method, 
@@ -38,8 +50,9 @@ namespace Exercises
          */
         public static int CountOfLargestNumbers(IEnumerable<int> numbers)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            if(!numbers.Any()) return 0;
+            var maks = numbers.Max();
+            return numbers.Count(number=> number==maks);
         }
 
         //Refactoring challenge
@@ -47,8 +60,7 @@ namespace Exercises
         public static int CountOfDogsOfTheOwnerWithMostDogs_Refactored(
             IEnumerable<Person> owners)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return owners.Max(owner=>owner.Pets.Count(pet=>pet.PetType==PetType.Dog));
         }
 
         //do not modify this method
