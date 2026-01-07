@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks.Sources;
 
 namespace Exercises
 {
@@ -23,8 +24,17 @@ namespace Exercises
         */
         public static float? AverageSnowFall(SnowFallData snowFallData)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+
+            return IsValid(snowFallData) ? snowFallData.MonthlySnowFallDataItems.
+                          Average(ave => ave.SnowfallInCentimeters) : null;
+
+
+        }
+        private static bool IsValid(SnowFallData snowFallData)
+        {
+            return snowFallData != null &&
+                   snowFallData.MonthlySnowFallDataItems != null &&
+                   snowFallData.MonthlySnowFallDataItems.Count() == 12;
         }
 
         //Coding Exercise 2
@@ -48,8 +58,9 @@ namespace Exercises
          */
         public static double MaxAverageOfMarks(IEnumerable<Student> students)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return students.Any() ? students.Max(student => student.Marks.Any() ? student.Marks.Average() : 0) : 0;
+        //İki tane ternary operatör olacak dedim yaaa :((
+        //Max'ın içerisine tanımladığımız student lambda operatörü listede dolaşmamızı sağlıyor. 
         }
 
         //Refactoring challenge
@@ -57,8 +68,13 @@ namespace Exercises
         public static float CalculateAverageHeight_Refactored(
             List<float?> heights, float defaultIfNull)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return heights == null || heights.Any() ? 
+                0 : 
+                heights.Average(
+                    height => height ?? defaultIfNull );
+
+            //height == null ? yerine null-coalescing yaptık.
+            //null ise defaultIfNull'u kullan null değilse height'ın kendisini kullan.
         }
 
         //do not modify this method

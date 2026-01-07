@@ -23,8 +23,14 @@ namespace Exercises
         public static bool IsTheNumberAtIndexTheLargest(
             IEnumerable<int> numbers, int index)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            if (index<0 || index>= numbers.Count())
+            {
+                return false;
+            }
+            return numbers.All(number => number <= numbers.ElementAt(index));
+            //Alternatively, 
+            //return numbers.Max()==numbers.ElementAt(index); 
+
         }
 
         //Coding Exercise 2
@@ -39,22 +45,27 @@ namespace Exercises
         public static string FormatPetDataAtIndex(
             IEnumerable<Pet> pets, int index)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            var pet=pets.ElementAtOrDefault(index);
+            //IEnumerable holds a list in type of class so if index is out of range then the method will return null.
+            return pet==null ?
+                $"Pet data is missing for index {index}":
+                $"Pet name: {pet.Name}"; 
         }
 
         //Refactoring challenge
         //TODO implement this method
         public static bool IsEmptyAtIndex_Refactored(IEnumerable<string> words, int index)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return words.ElementAtOrDefault(index) == null || words.ElementAt(index) == null;
+            //Alternatively,
+            //return string.IsNullOrEmpty(words.ElementAtOrDefault(index)); 
+
         }
 
         //do not modify this method
         public static bool IsEmptyAtIndex(IEnumerable<string> words, int index)
         {
-            var array = words.ToArray();
+            var array = words.ToArray();//Neden array'e çeviriyor? Galiba soru icabı.
             if (index < 0 || index >= array.Length)
             {
                 return true;
@@ -69,6 +80,11 @@ namespace Exercises
         public class Pet
         {
             public string Name { get; set; }
+
+            public override string ToString()
+            {
+                return Name;    
+            }
         }
     }
 }
