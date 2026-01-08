@@ -22,8 +22,16 @@ namespace Exercises
          */
         public static string GetTheOnlyUpperCaseWord(IEnumerable<string> words)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            //Kelimenin uzunluğu kelimedeki büyük harf sayısına eşit mi diye kontrol ediyoruz.
+            return words.SingleOrDefault(
+            word => word.Length == word.Count(character => char.IsUpper(character)));
+
+            //First alternative, kelimedeki bütün karakterler büyük harf mi diye bakıyoruz.
+            //return words.SingleOrDefault(word=>word.All(c=>char.IsUpper(c)));
+
+            //Second alternative,
+            //return words.SingleOrDefault(word => word.ToUpper() == word);
+            //Kelimenin upper case hali kelimenin kendisine eşit mi diye bakıyoruz.
         }
 
         /*
@@ -59,8 +67,7 @@ namespace Exercises
         public static IEnumerable<int> GetSingleElementCollection(
             IEnumerable<IEnumerable<int>> numberCollections)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return numberCollections.Single(sequence=> sequence.Count()==1);
         }
 
         //Refactoring challenge
@@ -68,8 +75,15 @@ namespace Exercises
         public static DateTime? GetSingleDay_Refactored(
             IEnumerable<DateTime> dates, DayOfWeek dayOfWeek)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            //First metodunu kullanmadan yaptığımız için ve hem Single() hem de SingleOrDefault() metotları predicate'e uyan birden fazla değer varsa hata fırlatacağı için bu yolu tercih etmememiz lazım
+            //Temel algo şu şekilde işliyor: Aradığım dayofweek listedeki dayofweek'e eşitliğinin sayısı bir tane mi ? Hayır ise null gönder evet ise single ile o dayofweek'i gönder.        
+            //Müthiş zekice!
+            return dates.Count(date => date.DayOfWeek == dayOfWeek) == 1 ?
+                dates.Single(date => date.DayOfWeek == dayOfWeek) :
+                 null;
+            //DateTime tipi değer tipli olduğu için ve == operatörü built-in bir şekilde zaten halihazırda overload edildiği için değer tipli karşılaştırma yapabiliyorum ve Contains kullanmama gerek kalmıyor.
+            //return dates.First(date=> date.DayOfWeek==dayOfWeek);
+
         }
 
         //do not modify this method

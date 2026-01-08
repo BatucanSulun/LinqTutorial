@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+   
 namespace Exercises
 {
     public static class FirstLast
@@ -17,10 +17,17 @@ namespace Exercises
             *all other characters in this word are lower case
         If there are no valid names in this collection, the result should be null.
          */
+
+        //Büyük index'teki büyük karakter sayısını saydırıp bire eşit mi diye kontrol ederek sadece ilk karakterin büyük olduğunu
+        //yani bir tane büyük harf olduğunu kontrol edebiliriz.
         public static string FindFirstNameInTheCollection(IEnumerable<string> words)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return words.FirstOrDefault(word=>
+            word.Length > 1 && 
+            char.IsUpper(word.First()) && 
+            word.Count(character=> char.IsUpper(character))==1);
+            //Döngü mantığında çalışmasını Count() metodu yapıyor, IsUpper değil.
+            
         }
 
         //Coding Exercise 2
@@ -32,16 +39,27 @@ namespace Exercises
          */
         public static Person GetYoungest(IEnumerable<Person> people)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            //Azalan sırada dizelim sonra ilk elemanı gönderelim.
+
+            return people.OrderByDescending(person => person.DateOfBirth).FirstOrDefault();
+            //Younger person has bigger date of birth.
+            //En genç olanın doğum tarihi en büyüktür.
+
+            //Alternativeliy,
+            //return people.OrderBy(person=> person.Name).LastOrDefault();   
         }
 
         //Refactoring challenge
         //TODO implement this method
         public static Person FindOwnerOf_Refactored(Pet pet, IEnumerable<Person> people)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            return people.FirstOrDefault(person => person.Pets.Contains(pet));
+
+            //return people.FirstOrDefault(person => person.Pets == pet);
+            //Eğer yukarıdaki gibi bir kod yazarsan IEnumerable<Pet> ile Pet nesnesini karşılaştırmış olursun
+            //Bu ikisi birbirinden farklı tipler olduğu için referansları da her zaman farklı olacaktır.udemy
+            //Bu yüzden her zaman false dönecektir.
+            //Yani Pet == IEnumerable<Pet> gibi bişey yapmaya çalışıyorsun.
         }
 
         //do not modify this method
@@ -86,6 +104,7 @@ namespace Exercises
             }
         }
 
+        
         public class Pet
         {
             public int Id { get; }
